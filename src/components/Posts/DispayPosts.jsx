@@ -3,6 +3,7 @@ import { GetAllPosts } from "../../services/postService.jsx";
 import { useEffect } from "react";
 import "./Posts.css";
 import { FilterBar } from "../NavBar/FilterBar.jsx";
+import { Topics } from "../NavBar/Topics.jsx";
 
 export const DisplayPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -27,9 +28,15 @@ export const DisplayPosts = () => {
 
   return (
     <div className="posts">
-      <div className="post">
-        <FilterBar setAllPosts={setAllPosts} setSearchTerm={setSearchTerm} />
+      <div className="navbar ">
+        <div>
+          <Topics />
+        </div>
+        <div>
+          <FilterBar setAllPosts={setAllPosts} setSearchTerm={setSearchTerm} />
+        </div>
       </div>
+
       {filteredPosts.map((post) => {
         return (
           <article className="posts-container" key={post.id}>
