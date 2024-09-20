@@ -1,9 +1,9 @@
-import { AllPosts } from "./components/Posts/AllPosts.jsx";
+import { DisplayPosts } from "./components/Posts/DispayPosts.jsx";
 
 export const App = () => {
   return (
     <div>
-      <AllPosts />
+      <DisplayPosts />
     </div>
   );
 };

@@ -2,20 +2,35 @@ import { useState } from "react";
 import { GetAllPosts } from "../../services/postService.jsx";
 import { useEffect } from "react";
 import "./Posts.css";
+import { FilterBar } from "../NavBar/FilterBar.jsx";
 
-export const AllPosts = () => {
+export const DisplayPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     GetAllPosts().then((postsArray) => {
       setAllPosts(postsArray);
     });
   }, []);
+  useEffect(() => {
+    setFilteredPosts(allPosts);
+  }, [allPosts]);
+
+  useEffect(() => {
+    const FoundPosts = allPosts.filter((post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredPosts(FoundPosts);
+  }, [allPosts, searchTerm]);
 
   return (
     <div className="posts">
-      <div></div>
-      {allPosts.map((post) => {
+      <div className="post">
+        <FilterBar setAllPosts={setAllPosts} setSearchTerm={setSearchTerm} />
+      </div>
+      {filteredPosts.map((post) => {
         return (
           <article className="posts-container" key={post.id}>
             <div className="post">
