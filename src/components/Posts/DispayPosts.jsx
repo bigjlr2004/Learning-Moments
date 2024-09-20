@@ -9,6 +9,7 @@ export const DisplayPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState(0);
 
   useEffect(() => {
     GetAllPosts().then((postsArray) => {
@@ -26,11 +27,22 @@ export const DisplayPosts = () => {
     setFilteredPosts(FoundPosts);
   }, [allPosts, searchTerm]);
 
+  useEffect(() => {
+    if (parseInt(selectedTopic) === 0) {
+      return setFilteredPosts(allPosts);
+    } else {
+      const topicPosts = allPosts.filter((post) => {
+        return post.topicId === parseInt(selectedTopic);
+      });
+      setFilteredPosts(topicPosts);
+    }
+  }, [selectedTopic, allPosts]);
+
   return (
     <div className="posts">
       <div className="navbar ">
         <div>
-          <Topics />
+          <Topics setSelectedTopic={setSelectedTopic} />
         </div>
         <div>
           <FilterBar setAllPosts={setAllPosts} setSearchTerm={setSearchTerm} />

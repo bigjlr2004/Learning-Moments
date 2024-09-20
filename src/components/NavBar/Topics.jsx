@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { GetAllTopics } from "../../services/TopicsService.jsx";
 
-export const Topics = () => {
-  const [postTopics, setPostTopics] = useState([[]]);
+export const Topics = ({ setSelectedTopic }) => {
+  const [postTopics, setPostTopics] = useState([]);
 
   useEffect(() => {
     GetAllTopics().then((topicsArray) => {
@@ -11,17 +11,20 @@ export const Topics = () => {
   }, []);
 
   return (
-    <div>
-      <select id="interior">
-        <option value="0">Select topic...</option>
-        {postTopics.map((post) => {
-          return (
-            <option value="{post.id}" key={post.id}>
-              {post.name}
-            </option>
-          );
-        })}
-      </select>
-    </div>
+    <select
+      id="topic"
+      onChange={(event) => {
+        setSelectedTopic(event.target.value);
+      }}
+    >
+      <option value="0">Select topic...</option>
+      {postTopics.map((topic) => {
+        return (
+          <option value={topic.id} key={topic.id}>
+            {topic.name}
+          </option>
+        );
+      })}
+    </select>
   );
 };
