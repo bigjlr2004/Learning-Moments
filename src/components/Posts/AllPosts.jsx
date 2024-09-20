@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GetAllPosts } from "../../services/postService.jsx";
 import { useEffect } from "react";
+import "./Posts.css";
 
 export const AllPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -13,22 +14,22 @@ export const AllPosts = () => {
 
   return (
     <div className="posts">
-      <div>
-        <h2>Posts</h2>
-      </div>
+      <div></div>
       {allPosts.map((post) => {
         return (
-          <div key={post.id}>
-            <div className="title">
-              <div> Title</div>
-              <div>{post.title}</div>
+          <article className="posts-container" key={post.id}>
+            <div className="post">
+              <div>
+                <div className="title"> Title:</div>
+                <div className="post-info">{post.title}</div>
+              </div>
+              <div>
+                <div className="title">Body:</div>
+                <div className="post-info">{post.body}</div>
+              </div>
+              <div className="post-info">Date: {post.date}</div>
             </div>
-            <div className="Body">
-              <div>Body:</div>
-              <div>{post.body}</div>
-            </div>
-            <div className="date">Date: {post.date}</div>
-          </div>
+          </article>
         );
       })}
     </div>
